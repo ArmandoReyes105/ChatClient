@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://tempuri.org/" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" name="ChatService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="NetTcpBinding_IMessageService_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <msf:WindowsTransportSecurity xmlns:msf="http://schemas.microsoft.com/ws/2006/05/framing/policy">
+                  <msf:ProtectionLevel>EncryptAndSign</msf:ProtectionLevel>
+                </msf:WindowsTransportSecurity>
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="NetTcpBinding_ISessionService_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <msf:WindowsTransportSecurity xmlns:msf="http://schemas.microsoft.com/ws/2006/05/framing/policy">
+                  <msf:ProtectionLevel>EncryptAndSign</msf:ProtectionLevel>
+                </msf:WindowsTransportSecurity>
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:8080/?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:8080/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IMessageService_SendMessage_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendMessage" />
+  </wsdl:message>
+  <wsdl:message name="IMessageService_StopMessaging_InputMessage">
+    <wsdl:part name="parameters" element="tns:StopMessaging" />
+  </wsdl:message>
+  <wsdl:message name="IMessageService_StopMessaging_OutputMessage">
+    <wsdl:part name="parameters" element="tns:StopMessagingResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMessageService_StartMessaging_InputMessage">
+    <wsdl:part name="parameters" element="tns:StartMessaging" />
+  </wsdl:message>
+  <wsdl:message name="IMessageService_StartMessaging_OutputMessage">
+    <wsdl:part name="parameters" element="tns:StartMessagingResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMessageService_ReciveMessage_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:ReciveMessage" />
+  </wsdl:message>
+  <wsdl:message name="IMessageService_ReciveMessage_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:ReciveMessageResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISessionService_LogIn_InputMessage">
+    <wsdl:part name="parameters" element="tns:LogIn" />
+  </wsdl:message>
+  <wsdl:message name="ISessionService_LogIn_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LogInResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISessionService_LogOut_InputMessage">
+    <wsdl:part name="parameters" element="tns:LogOut" />
+  </wsdl:message>
+  <wsdl:message name="ISessionService_JoinToChat_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:JoinToChat" />
+  </wsdl:message>
+  <wsdl:message name="ISessionService_JoinToChat_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:JoinToChatResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISessionService_LeaveTheChat_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:LeaveTheChat" />
+  </wsdl:message>
+  <wsdl:message name="ISessionService_LeaveTheChat_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:LeaveTheChatResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IMessageService">
+    <wsdl:operation name="SendMessage">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMessageService/SendMessage" message="tns:IMessageService_SendMessage_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="StopMessaging">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMessageService/StopMessaging" message="tns:IMessageService_StopMessaging_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMessageService/StopMessagingResponse" message="tns:IMessageService_StopMessaging_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="StartMessaging">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMessageService/StartMessaging" message="tns:IMessageService_StartMessaging_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMessageService/StartMessagingResponse" message="tns:IMessageService_StartMessaging_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReciveMessage">
+      <wsdl:output wsaw:Action="http://tempuri.org/IMessageService/ReciveMessage" message="tns:IMessageService_ReciveMessage_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IMessageService/ReciveMessageResponse" message="tns:IMessageService_ReciveMessage_InputCallbackMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="ISessionService">
+    <wsdl:operation name="LogIn">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISessionService/LogIn" message="tns:ISessionService_LogIn_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISessionService/LogInResponse" message="tns:ISessionService_LogIn_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="LogOut">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISessionService/LogOut" message="tns:ISessionService_LogOut_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="JoinToChat">
+      <wsdl:output wsaw:Action="http://tempuri.org/ISessionService/JoinToChat" message="tns:ISessionService_JoinToChat_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/ISessionService/JoinToChatResponse" message="tns:ISessionService_JoinToChat_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="LeaveTheChat">
+      <wsdl:output wsaw:Action="http://tempuri.org/ISessionService/LeaveTheChat" message="tns:ISessionService_LeaveTheChat_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/ISessionService/LeaveTheChatResponse" message="tns:ISessionService_LeaveTheChat_InputCallbackMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="NetTcpBinding_IMessageService" type="tns:IMessageService">
+    <wsp:PolicyReference URI="#NetTcpBinding_IMessageService_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="SendMessage">
+      <soap12:operation soapAction="http://tempuri.org/IMessageService/SendMessage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="StopMessaging">
+      <soap12:operation soapAction="http://tempuri.org/IMessageService/StopMessaging" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StartMessaging">
+      <soap12:operation soapAction="http://tempuri.org/IMessageService/StartMessaging" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReciveMessage">
+      <soap12:operation soapAction="http://tempuri.org/IMessageService/ReciveMessage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="NetTcpBinding_ISessionService" type="tns:ISessionService">
+    <wsp:PolicyReference URI="#NetTcpBinding_ISessionService_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="LogIn">
+      <soap12:operation soapAction="http://tempuri.org/ISessionService/LogIn" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LogOut">
+      <soap12:operation soapAction="http://tempuri.org/ISessionService/LogOut" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="JoinToChat">
+      <soap12:operation soapAction="http://tempuri.org/ISessionService/JoinToChat" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeaveTheChat">
+      <soap12:operation soapAction="http://tempuri.org/ISessionService/LeaveTheChat" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ChatService">
+    <wsdl:port name="NetTcpBinding_IMessageService" binding="tns:NetTcpBinding_IMessageService">
+      <soap12:address location="net.tcp://localhost:8090/Services" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:8090/Services</wsa10:Address>
+        <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
+          <Upn>LAPTOP-4BO92M5A\Jax</Upn>
+        </Identity>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+    <wsdl:port name="NetTcpBinding_ISessionService" binding="tns:NetTcpBinding_ISessionService">
+      <soap12:address location="net.tcp://localhost:8090/Services" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:8090/Services</wsa10:Address>
+        <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
+          <Upn>LAPTOP-4BO92M5A\Jax</Upn>
+        </Identity>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
